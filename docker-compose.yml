@@ -9,6 +9,6 @@ services:
     ports:
     - "50150:80"
     volumes:
-    - ../data:/data/zotero
+    - ../data:/var/www/html/data
 
 

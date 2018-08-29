@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  zotero_webdav:
+    container_name: zotero_webdav
+    build: .
+    restart: always
+    image: zotero_webdav
+    ports:
+    - "50150:80"
+    volumes:
+    - ../data:/data/zotero
+
+

@@ -8,6 +8,7 @@ COPY config/php.ini /usr/local/etc/php/
 ARG MY_ZOTERO_API_KEY
 ARG MY_ZOTERO_USER_ID
 ARG MY_ZOTERO_USER_NAME
+ARG MY_ZOTERO_WEB_PASSWORD
 
 ARG MY_ZOTERO_TIMEZONE=UTC
 
@@ -18,6 +19,7 @@ VOLUME /var/www/html/data/cache
 RUN ["/bin/bash", "-c", ": ${MY_ZOTERO_API_KEY:?Build argument needs to be set and not null.}"]
 RUN ["/bin/bash", "-c", ": ${MY_ZOTERO_USER_ID:?Build argument needs to be set and not null.}"]
 RUN ["/bin/bash", "-c", ": ${MY_ZOTERO_USER_NAME:?Build argument needs to be set and not null.}"]
+RUN ["/bin/bash", "-c", ": ${MY_ZOTERO_WEB_PASSWORD:?Build argument needs to be set and not null.}"]
 
 RUN sed -i "s/MY_ZOTERO_API_KEY/${MY_ZOTERO_API_KEY}/" /var/www/html/settings.php
 RUN sed -i "s/MY_ZOTERO_USER_ID/${MY_ZOTERO_USER_ID}/" /var/www/html/settings.php
@@ -26,5 +28,5 @@ RUN sed -i "s/MY_ZOTERO_USER_NAME/${MY_ZOTERO_USER_NAME}/" /var/www/html/setting
 RUN sed -i "s/MY_ZOTERO_TIMEZONE/${MY_ZOTERO_TIMEZONE}/" /usr/local/etc/php/php.ini
 
 
-#COPY config/default_htaccess /var/www/html/.htaccess
-#RUN htpasswd -f /htpasswd -b "${MY_ZOTERO_WEB_USER}" "${MY_ZOTERO_WEB_PASSWORD}"
+COPY config/default_htaccess /var/www/html/.htaccess
+RUN htpasswd -cmb /htpasswd "${MY_ZOTERO_USER_NAME}" "${MY_ZOTERO_WEB_PASSWORD}"

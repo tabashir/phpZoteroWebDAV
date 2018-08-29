@@ -5,7 +5,7 @@ services:
     container_name: zotero_webdav
     build: .
     restart: always
-    image: zotero_webdav
+    image: tabashir/zotero_webdav
     ports:
     - "50150:80"
     volumes:

@@ -4,11 +4,13 @@ RUN mkdir -p /data/zotero
 VOLUME /data/zotero
 
 COPY src/ /var/www/html/
+COPY config/php.ini /usr/local/etc/php/
 
 ARG MY_ZOTERO_API_KEY
 ARG MY_ZOTERO_USER_ID
 ARG MY_ZOTERO_USER_NAME
 ARG MY_ZOTERO_CACHE_BASE_URL
+ARG MY_ZOTERO_TIMEZONE=UTC
 
 
 # Check for mandatory build arguments
@@ -21,7 +23,8 @@ RUN sed -i "s/MY_ZOTERO_API_KEY/${MY_ZOTERO_API_KEY}/" /var/www/html/settings.ph
 RUN sed -i "s/MY_ZOTERO_USER_ID/${MY_ZOTERO_USER_ID}/" /var/www/html/settings.php
 RUN sed -i "s/MY_ZOTERO_USER_NAME/${MY_ZOTERO_USER_NAME}/" /var/www/html/settings.php
 RUN sed -i "s/MY_ZOTERO_CACHE_BASE_URL/${MY_ZOTERO_CACHE_BASE_URL}/" /var/www/html/settings.php
+RUN sed -i "s/MY_ZOTERO_TIMEZONE/${MY_ZOTERO_TIMEZONE}/" /usr/local/etc/php/php.ini
 
 
-#COPY default_htaccess /var/www/html/.htaccess
+#COPY config/default_htaccess /var/www/html/.htaccess
 #RUN htpasswd -f /htpasswd -b "${MY_ZOTERO_WEB_USER}" "${MY_ZOTERO_WEB_PASSWORD}"

@@ -12,7 +12,7 @@ ARG MY_ZOTERO_WEB_PASSWORD
 
 ARG MY_ZOTERO_TIMEZONE=UTC
 
-RUN mkdir /var/www/html/data
+RUN mkdir -p /var/www/html/data
 
 # Check for mandatory build arguments
 RUN ["/bin/bash", "-c", ": ${MY_ZOTERO_API_KEY:?Build argument needs to be set and not null.}"]

@@ -1,6 +1,4 @@
 FROM php:5-apache
-RUN mkdir -p /cache
-RUN mkdir -p /data/zotero
 
 COPY src/ /var/www/html/
 COPY config/php.ini /usr/local/etc/php/

@@ -1,5 +1,7 @@
 FROM php:5-apache
 
+RUN apt-get update && apt-get install -y zlib1g-dev && docker-php-ext-install zip
+
 COPY src/ /var/www/html/
 COPY config/php.ini /usr/local/etc/php/
 
